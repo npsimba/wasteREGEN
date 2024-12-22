@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Read Waste</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #a8e063, #89b874);
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+    }
+    .form-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label {
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      color: #333;
+    }
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      margin-bottom: 1rem;
+    }
+    .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+    .read-button, .reset-button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .read-button {
+      background-color: #4CAF50;
+    }
+    .reset-button {
+      background-color: #f44336;
+    }
+    .result-container {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .result-container p {
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Read Waste</h1>
+  <div class="form-container">
+    <label for="wasteId">Waste ID</label>
+    <input type="text" id="wasteId" name="wasteId">
+    <div class="buttons">
+      <button class="read-button" onclick="readWaste()">Read</button>
+      <button class="reset-button" onclick="resetForm()">Reset</button>
+    </div>
+  </div>
+  <div class="result-container" id="resultContainer">
+    <!-- Display fetched waste data here -->
+  </div>
+
+  <script>
+    async function readWaste() {
+  const wasteId = document.getElementById('wasteId').value.trim(); // Get the value from input field
+
+  if (!wasteId) {
+    alert('Please enter a Waste ID.');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:27017/api/waste?wasteId=${wasteId}`);
+
+    if (!response.ok) {
+      throw new Error('Waste not found');
+    }
+
+    const data = await response.json();
+    console.log('Fetched Data:', data);  // Log the received data
+
+    // Check if the data has the expected properties
+    if (data.wasteId && data.collectionCompany && data.totalWeight && data.owner) {
+      // Display the waste data in the result container
+      const resultContainer = document.getElementById('resultContainer');
+      resultContainer.innerHTML = `
+        <p><strong>Waste ID:</strong> ${data.wasteId}</p>
+        <p><strong>Collection Company:</strong> ${data.collectionCompany}</p>
+        <p><strong>Total Weight:</strong> ${data.totalWeight} kg</p>
+        <p><strong>Owner:</strong> ${data.owner}</p>
+      `;
+    } else {
+      throw new Error('Invalid data structure');
+    }
+  } catch (error) {
+    console.error('Error fetching waste data:', error);
+    alert('Failed to fetch waste. Please check the Waste ID and try again.');
+  }
+}
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Recycling Management</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #d1f8d1, #97e297);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #3b940b;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+
+        header nav a:hover {
+            text-decoration: none;
+        }
+
+        /* Main Content */
+        .container {
+            text-align: center;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+
+        .container h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .container p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        /* Role Selection Buttons */
+        .roles {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .role {
+            width: 250px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .role:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .role.waste {
+            background-color: #f09a54;
+            text-decoration: none;
+        }
+
+        .role.recycle {
+            background-color: #f8e48c;
+        }
+
+        .role.manufacturer {
+            background-color: #be8ff1;
+        }
+
+        .role.government {
+            background-color: #ffb2b2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="title">Waste Recycling Management</div>
+        <nav>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Waste Management System</h1>
+        <p>Choose your role to access the system:</p>
+
+        <div class="roles">
+            <a href="waste-dashboard.html"><button class="role manufacturer">Waste Collection Center</button></a>
+            <div class="role recycle">Recycling Center</div>
+            <a href="manufacturer-dashboard.html"><button class="role waste">Manufacturer</button></a>
+            <div class="role government">Government</div>
+        </div>
+    </div>
+
+    <!-- <script>
+        // JavaScript for role interaction
+        const roles = document.querySelectorAll('.role');
+
+        roles.forEach(role => {
+            role.addEventListener('click', () => {
+                alert(You selected: ${role.textContent});
+            });
+        });
+    </script> -->
+</body>
+</html>

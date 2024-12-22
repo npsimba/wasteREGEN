@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manufacturer Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    button {
+      display: block;
+      width: 200px;
+      margin: 10px auto;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Manufacturer Dashboard</h2>
+    <button onclick="buyWaste()">Buy Waste</button>
+    <button onclick="createProduct()">Create Product</button>
+    <button onclick="readProduct()">Read Product</button>
+    <button onclick="deleteProduct()">Delete Product</button>
+    <button onclick="viewAllProducts()">View All Products</button>
+  </div>
+
+  <script>
+    function buyWaste() {
+      fetch('http://localhost:27017/buyWaste', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function createProduct() {
+      fetch('http://localhost:27017/createProduct', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function readProduct() {
+      fetch('http://localhost:27017/readProduct')
+        .then(response => response.json())
+        .then(data => alert(`Product ID: ${data.id}, Product Name: ${data.name}`))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function deleteProduct() {
+      fetch('http://localhost:27017/deleteProduct', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => alert(data.message))
+        .catch(error => console.error('Error:', error));
+    }
+
+    function viewAllProducts() {
+      fetch('http://localhost:27017/viewAllProducts')
+        .then(response => response.json())
+        .then(data => alert(`Products: ${data.products.join(', ')}`))
+        .catch(error => console.error('Error:', error));
+    }
+  </script>
+</body>
+</html>

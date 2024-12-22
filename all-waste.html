@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Waste</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d4f9d3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    form div {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    document.getElementById('wasteForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = {
+        wasteId: document.getElementById('wasteId').value,
+        collectionCompany: document.getElementById('collectionCompany').value,
+        totalWeight: document.getElementById('totalWeight').value,
+        owner: document.getElementById('owner').value
+      };
+
+      try {
+        const response = await fetch('http://localhost:27017/api/waste', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          alert('Waste created successfully!');
+          document.getElementById('wasteForm').reset();
+        } else {
+          const errorData = await response.json();
+          alert('Error: ' + errorData.error);
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!-- New Frontend: HTML for All Waste Data -->
+<!-- Save this as all-waste.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Waste</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d4f9d3;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h2>All Waste</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Waste ID</th>
+        <th>Total Weight (kg)</th>
+        <th>Collection Company</th>
+        <th>Owner</th>
+      </tr>
+    </thead>
+    <tbody id="wasteTableBody">
+      <!-- Data will be inserted here dynamically -->
+    </tbody>
+  </table>
+
+  <script>
+    async function fetchWasteData() {
+      try {
+        const response = await fetch('http://localhost:27017/api/waste');
+        const wasteData = await response.json();
+
+        const tableBody = document.getElementById('wasteTableBody');
+        tableBody.innerHTML = '';
+
+        wasteData.forEach(waste => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${waste.wasteId}</td>
+            <td>${waste.totalWeight}</td>
+            <td>${waste.collectionCompany}</td>
+            <td>${waste.owner}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error fetching waste data:', error);
+      }
+    }
+
+    fetchWasteData();
+  </script>
+</body>
+</html>

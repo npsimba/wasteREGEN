@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d4f8d4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .dashboard-container {
+      text-align: center;
+      background-color: #ffffff;
+      padding: 20px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .button-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+    .button-grid button {
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    .button-grid button:hover {
+      transform: scale(1.05);
+    }
+    .btn-buy { background-color: #64d6c3; color: white; }
+    .btn-create { background-color: #f4c542; color: white; }
+    .btn-read { background-color: #90ee90; color: white; }
+    .btn-delete { background-color: #f7797d; color: white; }
+    .btn-view { background-color: #e6e6e6; color: #333; grid-column: span 2; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Waste Collection Dashboard</h1>
+    <div class="button-grid">
+      <a href="index.html"><button class="btn-buy">Create Waste</button></a>
+      <a href="read-waste.html"><button class="btn-create">Read waste</button></a>
+      <a href="delete-waste.html"><button class="btn-read" onclick="navigateTo('Delete waste')">Delete waste</button></a>
+      <a href="all-waste.html"><button class="btn-read">All waste</button></a>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to handle navigation (placeholder functionality)
+    // function navigateTo(page) {
+    //   alert(Navigating to ${page});
+    //   // Replace alert with actual navigation logic (e.g., window.location.href)
+    // }
+  </script>
+</body>
+</html>
